@@ -53,12 +53,12 @@ public class FingerRawDisplay : MonoBehaviour
     {
         var layer = gameObject.layer;
 
-        // Joint balls
-        /*for (var i = 0; i < 21; i++)
+        //Joint balls
+        for (var i = 0; i < 21; i++)
         {
             var xform = CalculateJointXform(landmarkDetector.getPoint(i));
             Graphics.DrawMesh(_jointMesh, xform, _jointMaterial, layer);
-        }*/
+        }
 
         // Bones
         foreach (var pair in BonePairs)
