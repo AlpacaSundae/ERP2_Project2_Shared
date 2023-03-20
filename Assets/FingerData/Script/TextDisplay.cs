@@ -4,12 +4,12 @@ using UnityEngine;
 using TMPro;
 
 
-public class Text : MonoBehaviour
+public class TextDisplay : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] TextMeshPro handiness;
-    [SerializeField] TextMeshPro palm_angle;
-    [SerializeField] TextMeshPro correct;
+    [SerializeField] TextMeshProUGUI handiness;
+    [SerializeField] TextMeshProUGUI palm_angle;
+    [SerializeField] TextMeshProUGUI correct;
     [SerializeField] FingerTracker fintracker;
     
     void Start()
@@ -32,8 +32,8 @@ public class Text : MonoBehaviour
         {
             handiness.text =  "Handed?:"; 
         }
-      palm_angle.text = "Deviant: " + fintracker.normal.ToString();
-      if (fintracker.normal < 45)
+      palm_angle.text = "Deviant: " + fintracker.palmAngle.ToString();
+      if (fintracker.palmAngle < 45)
       {
             correct.text = "In postion?: Yes";
             correct.color = Color.green;
