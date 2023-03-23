@@ -15,6 +15,9 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     public int holdTimer = 0;
     public bool complete = false;
 
+    public Vector3 getHandPos()
+        => _fingerTracker.getPoint(0);
+
     void checkTouching()
     {
         if (_fingerTracker.distances[curFinger] < touchDistance[curFinger])
