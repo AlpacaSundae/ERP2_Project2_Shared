@@ -8,31 +8,29 @@ using UnityEngine;
 
 namespace MediaPipe.HandPose {
 
-
-
-partial class HandPipeline
-{
-    // Gets the handedness of detected hand
-    // -1 = unknown, 0 = right, 1 = left
-    public int getHandedness()
+    partial class HandPipeline
     {
-      var handedness = -1;
-      var hand_tol = 0.025;
-      var value = _getHandedness();
+        // Gets the handedness of detected hand
+        // -1 = unknown, 0 = right, 1 = left
+        public int getHandedness()
+        {
+            var handedness = -1;
+            var hand_tol = 0.025;
+            var value = _getHandedness();
 
-      if ((Mathf.Abs(value - 1)) < hand_tol)
-      {
-        handedness = 0;
-      }
-      else if ((Mathf.Abs(value)) < hand_tol)
-      {
-        handedness = 1;
-      }
+            if ((Mathf.Abs(value - 1)) < hand_tol)
+            {
+                handedness = 0;
+            }
+            else if ((Mathf.Abs(value)) < hand_tol)
+            {
+                handedness = 1;
+            }
 
-      return handedness;
+            return handedness;
+        }
+
+        private float _getHandedness()
+            => _detector.landmark.Handedness;
     }
-
-    private float _getHandedness()
-      => _detector.landmark.Handedness;
-}
 }
