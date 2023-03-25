@@ -2,6 +2,7 @@
 // positional data. Uses adapted implementation from HPB's "HandAnimator.cs"
 //
 // Modified: 12/03/2023 by Jaicob Schott
+// Modified: 3/25/2023 by Samuel Tan -> Edited colouring + poses
 
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,11 @@ public class FingerRawDisplay : MonoBehaviour
     [SerializeField] Mesh _jointMesh = null;
     [SerializeField] Mesh _boneMesh = null;
     [Space]
-    [SerializeField] Material _jointMaterial = null;
+    [SerializeField] Material _relevantMaterial = null;
+    //[SerializeField] Material _boneMaterial = null;
+    //[SerializeField] Material _desiredMaterial = null;
+    //[SerializeField] Material _undesiredMaterial = null;
+    [SerializeField] Material _ignoredMaterial = null;
     [SerializeField] Material _boneMaterial = null;
 
     Matrix4x4 CalculateJointXform(Vector3 pos)
@@ -42,6 +47,24 @@ public class FingerRawDisplay : MonoBehaviour
         (0, 17), (2, 5), (5, 9), (9, 13), (13, 17)  // Palm
     };
 
+    //pose test for foward facing 
+    // joints: 5,6,7, 
+    //        9,10,11, 
+    //        13,14,15
+    //        17,18,19
+    // should all be arround 170, 180 degrees
+    // unsure of joints:
+    //         2,3 (thumb)
+
+    static readonly int[] FlatPose =
+    {
+        (-1), (-1), (180),(180), (-1),    //Thumb + Palm
+        (180),(180),(180),(-1),           //Index finger
+        (180),(180),(180),(-1),           //Middle finger
+        (180),(180),(180),(-1),           //Ring finger
+        (180),(180),(180),(-1)           //Pinky
+    };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,8 +79,20 @@ public class FingerRawDisplay : MonoBehaviour
         //Joint balls
         for (var i = 0; i < 21; i++)
         {
-            var xform = CalculateJointXform(landmarkDetector.getPoint(i));
-            Graphics.DrawMesh(_jointMesh, xform, _jointMaterial, layer);
+            if (FlatPose[i] != -1)
+            {
+  
+
+                //Console.WriteLine(FingerTracker.angles.Array.data[0]);
+                var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                Graphics.DrawMesh(_jointMesh, xform, _relevantMaterial, layer);
+
+            }
+            else
+            {
+                var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                Graphics.DrawMesh(_jointMesh, xform, _ignoredMaterial, layer);
+            }
         }
 
         // Bones

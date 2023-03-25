@@ -1423,8 +1423,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   landmarkDetector: {fileID: 1791954282}
   _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _relevantMaterial: {fileID: 0}
+  _ignoredMaterial: {fileID: 0}
   _boneMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1825969466 stripped
 GameObject:

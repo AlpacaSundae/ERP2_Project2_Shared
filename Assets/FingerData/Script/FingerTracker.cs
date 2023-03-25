@@ -64,7 +64,7 @@ public class FingerTracker : MonoBehaviour
   static readonly int[] FingerTip = {8, 12, 16, 20};
   static readonly int AngleSmoothing = 15;   // count of angle calculations to keep memory of
 
-  float[,] angle_hist = new float[AngleSmoothing, JointTriples.GetLength(0)];
+  public float[,] angle_hist = new float[AngleSmoothing, JointTriples.GetLength(0)];
   int angle_idx = 0; // which entry currently used in angle array
 
   // returns an array of all finger angles
