@@ -1424,7 +1424,8 @@ MonoBehaviour:
   landmarkDetector: {fileID: 1791954282}
   _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  _relevantMaterial: {fileID: 2100000, guid: 41e1e43f8faf0d04d807d9d849e9a215, type: 2}
+  _desiredMaterial: {fileID: 2100000, guid: da5afb77ebcab3247a21235e4dc31cc2, type: 2}
+  _undesiredMaterial: {fileID: 2100000, guid: 41e1e43f8faf0d04d807d9d849e9a215, type: 2}
   _ignoredMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   _boneMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1825969466 stripped
