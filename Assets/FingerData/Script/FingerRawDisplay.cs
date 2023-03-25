@@ -15,10 +15,9 @@ public class FingerRawDisplay : MonoBehaviour
     [SerializeField] Mesh _jointMesh = null;
     [SerializeField] Mesh _boneMesh = null;
     [Space]
-    [SerializeField] Material _relevantMaterial = null;
-    //[SerializeField] Material _boneMaterial = null;
-    //[SerializeField] Material _desiredMaterial = null;
-    //[SerializeField] Material _undesiredMaterial = null;
+    //[SerializeField] Material _relevantMaterial = null;
+    [SerializeField] Material _desiredMaterial = null;
+    [SerializeField] Material _undesiredMaterial = null;
     [SerializeField] Material _ignoredMaterial = null;
     [SerializeField] Material _boneMaterial = null;
 
@@ -58,7 +57,8 @@ public class FingerRawDisplay : MonoBehaviour
 
     static readonly int[] FlatPose =
     {
-        (-1), (-1), (180),(180), (-1),    //Thumb + Palm
+        //(-1), (-1), (180),(180), (-1),    //Thumb + Palm
+        (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
         (180),(180),(180),(-1),           //Index finger
         (180),(180),(180),(-1),           //Middle finger
         (180),(180),(180),(-1),           //Ring finger
@@ -77,15 +77,26 @@ public class FingerRawDisplay : MonoBehaviour
         var layer = gameObject.layer;
 
         //Joint balls
+        var counter = 1;
         for (var i = 0; i < 21; i++)
         {
+
             if (FlatPose[i] != -1)
             {
-  
-
-                //Console.WriteLine(FingerTracker.angles.Array.data[0]);
-                var xform = CalculateJointXform(landmarkDetector.getPoint(i));
-                Graphics.DrawMesh(_jointMesh, xform, _relevantMaterial, layer);
+                //20 angle tolerance
+                var tolerance = 15;
+                if ((landmarkDetector.angles[counter] >= FlatPose[i]- tolerance ) )
+                {
+                    var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                    Graphics.DrawMesh(_jointMesh, xform, _desiredMaterial, layer);
+                    counter++;
+                }
+                else
+                {
+                    var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                    Graphics.DrawMesh(_jointMesh, xform, _undesiredMaterial, layer);
+                    counter++;
+                }
 
             }
             else
