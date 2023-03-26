@@ -14,6 +14,8 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     public int curFinger = 0;
     public int holdTimer = 0;
     public bool complete = false;
+    public bool clear = false;
+    public bool run = false;
 
     public Vector3 getHandPos()
         => _fingerTracker.getPoint(0);
@@ -39,6 +41,12 @@ public class PoseDetector_ThumbOs : MonoBehaviour
         }
     }
 
+    void resetExercise()
+    {
+        curFinger = 0;
+        complete = false;
+        clear = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +56,9 @@ public class PoseDetector_ThumbOs : MonoBehaviour
 
     void Update()
     {
-        if (!complete)
+        if (clear)
+            resetExercise();
+        else if (!complete & run)
             checkTouching();
     }
 }
