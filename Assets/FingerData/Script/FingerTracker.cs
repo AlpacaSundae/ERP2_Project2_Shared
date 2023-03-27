@@ -132,6 +132,7 @@ public class FingerTracker : MonoBehaviour
         for (var ii = 0; ii < JointTriples.GetLength(0); ii++)
             for (var jj = 0; jj < AngleSmoothing; jj++)
                 angle_hist[jj,ii] = 180f;
+        smoothFingerAngles();
     }
 
     void OnDestroy()
