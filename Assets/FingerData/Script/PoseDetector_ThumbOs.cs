@@ -9,7 +9,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     [SerializeField] int _holdTime;
 
     // allows for fine tuning the distance between thumb and finger tip required for considering a touch
-    static readonly double[] touchDistance = {0.06, 0.06, 0.06, 0.06}; // index, middle, ring, pinky
+    static readonly double[] touchDistance = {0.07, 0.08, 0.08, 0.08}; // index, middle, ring, pinky
     
     public int curFinger = 0;
     public int holdTimer = 0;
@@ -51,7 +51,8 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        clear = true;
+        run = false;
     }
 
     void Update()
