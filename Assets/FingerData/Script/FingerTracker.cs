@@ -33,10 +33,10 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] ResourceSet _resources = null;
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
-    [SerializeField] int _desiredHandedness = 0;
     [Space]
 
     // Public outputs
+    public int _desiredHandedness = 0;
     public int handedness;
     public float[] angles = new float[JointTriples.GetLength(0)];
     public float[] distances = new float[FingerTip.Length];

@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class FingerRawDisplay : MonoBehaviour
 {
-    [SerializeField] FingerTracker landmarkDetector;
+    [SerializeField] FingerTracker _landmarkDetector;
     [Space]
     [SerializeField] Mesh _jointMesh = null;
     [SerializeField] Mesh _boneMesh = null;
@@ -56,15 +56,15 @@ public class FingerRawDisplay : MonoBehaviour
         //Joint balls
         for (var i = 0; i < 21; i++)
         {
-            var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+            var xform = CalculateJointXform(_landmarkDetector.getPoint(i));
             Graphics.DrawMesh(_jointMesh, xform, _jointMaterial, layer);
         }
 
         // Bones
         foreach (var pair in BonePairs)
         {
-            var p1 = landmarkDetector.getPoint(pair.Item1);
-            var p2 = landmarkDetector.getPoint(pair.Item2);
+            var p1 = _landmarkDetector.getPoint(pair.Item1);
+            var p2 = _landmarkDetector.getPoint(pair.Item2);
             var xform = CalculateBoneXform(p1, p2);
             Graphics.DrawMesh(_boneMesh, xform, _boneMaterial, layer);
         }
