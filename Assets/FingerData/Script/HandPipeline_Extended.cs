@@ -12,7 +12,7 @@ namespace MediaPipe.HandPose {
     {
         // Gets the handedness of detected hand
         // -1 = unknown, 0 = right, 1 = left
-        public static double MIN_DETECT_SCORE = 0.9;
+        public static double MIN_DETECT_SCORE = 0.8;
         public int getHandedness()
         {
             var handedness = -1;

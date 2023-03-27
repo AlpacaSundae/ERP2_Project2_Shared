@@ -2468,9 +2468,9 @@ MonoBehaviour:
   _textureUrl: 
   _video: {fileID: 0}
   _videoUrl: 
-  _webcamName: c922 Pro Stream Webcam
+  _webcamName: OBS Virtual Camera
   _webcamResolution: {x: 1280, y: 720}
-  _webcamFrameRate: 60
+  _webcamFrameRate: 30
   _outputTexture: {fileID: 0}
   _outputResolution: {x: 1280, y: 720}
   _shader: {fileID: 4800000, guid: 3f7d8db4748f54c638a46cec0b0e61f8, type: 3}
@@ -2530,7 +2530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d042c1cdbc8956d4fa89868b1ee3070c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _landmarkDetector: {fileID: 0}
+  _landmarkDetector: {fileID: 1791954282}
   _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}

@@ -38,6 +38,7 @@ public class FingerTracker : MonoBehaviour
     // Public outputs
     public int _desiredHandedness = 0;
     public int handedness;
+    public bool confidence;
     public float[] angles = new float[JointTriples.GetLength(0)];
     public float[] distances = new float[FingerTip.Length];
     public float palmAngle;
@@ -145,7 +146,8 @@ public class FingerTracker : MonoBehaviour
         _pipeline.ProcessImage(_source.Texture);
 
         handedness = _pipeline.getHandedness();
-        if ((handedness == _desiredHandedness) & _pipeline.getHandDetected())
+        confidence = _pipeline.getHandDetected();
+        if ((handedness == _desiredHandedness) & confidence)
         {
             getFingerAngles();
             smoothFingerAngles();
