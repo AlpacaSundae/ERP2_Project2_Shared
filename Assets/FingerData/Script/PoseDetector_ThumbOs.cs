@@ -45,7 +45,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     {
         curFinger = 0;
         complete = false;
-        clear = true;
+        clear = false;
     }
 
     // Start is called before the first frame update

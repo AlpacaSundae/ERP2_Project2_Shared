@@ -144,7 +144,7 @@ public class FingerTracker : MonoBehaviour
         _pipeline.ProcessImage(_source.Texture);
 
         handedness = _pipeline.getHandedness();
-        if (handedness == _desiredHandedness)
+        if ((handedness == _desiredHandedness) & _pipeline.getHandDetected())
         {
             getFingerAngles();
             smoothFingerAngles();
