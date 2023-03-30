@@ -16,14 +16,17 @@ public class FingerRawDisplay : MonoBehaviour
     [Space]
     [SerializeField] Material _jointMaterial = null;
     [SerializeField] Material _boneMaterial = null;
+    [Space]
+    [SerializeField] bool _keepStill;
+    [SerializeField] Vector3 _offset;
 
     Matrix4x4 CalculateJointXform(Vector3 pos)
-        => Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.07f);
+        => Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.03f);
 
     Matrix4x4 CalculateBoneXform(Vector3 p1, Vector3 p2)
     {
         var length = Vector3.Distance(p1, p2) / 2;
-        var radius = 0.03f;
+        var radius = 0.02f;
 
         var center = (p1 + p2) / 2;
         var rotation = Quaternion.FromToRotation(Vector3.up, p2 - p1);
@@ -52,11 +55,15 @@ public class FingerRawDisplay : MonoBehaviour
     void Update()
     {
         var layer = gameObject.layer;
+        var lockPos = _landmarkDetector.getPoint(0) + _offset;
 
         //Joint balls
         for (var i = 0; i < 21; i++)
         {
-            var xform = CalculateJointXform(_landmarkDetector.getPoint(i));
+            var pos = _landmarkDetector.getPoint(i);
+            if (_keepStill)
+                pos -= lockPos;
+            var xform = CalculateJointXform(pos);
             Graphics.DrawMesh(_jointMesh, xform, _jointMaterial, layer);
         }
 
@@ -65,6 +72,11 @@ public class FingerRawDisplay : MonoBehaviour
         {
             var p1 = _landmarkDetector.getPoint(pair.Item1);
             var p2 = _landmarkDetector.getPoint(pair.Item2);
+            if (_keepStill)
+            {
+                p1 -= lockPos;
+                p2 -= lockPos;
+            }
             var xform = CalculateBoneXform(p1, p2);
             Graphics.DrawMesh(_boneMesh, xform, _boneMaterial, layer);
         }
