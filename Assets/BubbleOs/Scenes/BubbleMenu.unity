@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _source: {fileID: 1791954283}
-  _resources: {fileID: 11400000, guid: 91bfddd4f6a664d13be4b4a5340a2099, type: 2}
+  _resources: {fileID: 11400000, guid: c13b11d7724748847aaa2d982eb3c3ad, type: 2}
   _useAsyncReadback: 1
   _minConfidence: 0.75
   _desiredHandedness: 1
@@ -2538,6 +2538,8 @@ MonoBehaviour:
   _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 3}
   _boneMaterial: {fileID: 8950265562796933603, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
+  _keepStill: 0
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1825969466 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -508814229081040032, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
