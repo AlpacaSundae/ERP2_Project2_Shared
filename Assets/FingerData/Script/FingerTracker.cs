@@ -33,6 +33,7 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] ResourceSet _resources = null;
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
+    [SerializeField] float _minConfidence = 0.75f;
     [Space]
 
     // Public outputs
@@ -146,7 +147,7 @@ public class FingerTracker : MonoBehaviour
         _pipeline.ProcessImage(_source.Texture);
 
         handedness = _pipeline.getHandedness();
-        confidence = _pipeline.getHandDetected();
+        confidence = _pipeline.getHandDetected(_minConfidence);
         if ((handedness == _desiredHandedness) & confidence)
         {
             getFingerAngles();

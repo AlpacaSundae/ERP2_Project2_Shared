@@ -12,7 +12,7 @@ namespace MediaPipe.HandPose {
     {
         // Gets the handedness of detected hand
         // -1 = unknown, 0 = right, 1 = left
-        public static double MIN_DETECT_SCORE = 0.8;
+        public const float MIN_DETECT_SCORE = 0.8f;
         public int getHandedness()
         {
             var handedness = -1;
@@ -32,9 +32,9 @@ namespace MediaPipe.HandPose {
         }
 
         // returns true if score indicates probable detection
-        public bool getHandDetected()
+        public bool getHandDetected(float minConfidence=MIN_DETECT_SCORE)
         {
-            if (_getScore() >= MIN_DETECT_SCORE)
+            if (_getScore() >= minConfidence)
                 return true;
             else
                 return false;
