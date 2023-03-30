@@ -50,12 +50,12 @@ public class TextDisplay : MonoBehaviour
 
     public void startExercise()
     {
-        _thumbos.clear = true;
         _thumbos.run = true;
     }
 
     public void stopExercise()
     {
+        _thumbos.clear = true;
         _thumbos.run = false;
     }
 

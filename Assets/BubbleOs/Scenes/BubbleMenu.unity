@@ -474,7 +474,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: hand
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -575,6 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fingerTracker: {fileID: 1791954282}
   _holdTime: 120
+  _awaitNext: 1
   curFinger: 0
   holdTimer: 0
   complete: 0
@@ -2310,7 +2311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: finger
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2427,8 +2428,10 @@ MonoBehaviour:
   _source: {fileID: 1791954283}
   _resources: {fileID: 11400000, guid: 91bfddd4f6a664d13be4b4a5340a2099, type: 2}
   _useAsyncReadback: 1
+  _minConfidence: 0.75
   _desiredHandedness: 1
   handedness: 0
+  confidence: 0
   angles:
   - 0
   - 0
@@ -2525,16 +2528,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791954281}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d042c1cdbc8956d4fa89868b1ee3070c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _landmarkDetector: {fileID: 1791954282}
-  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  _boneMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 3}
+  _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 3}
+  _boneMaterial: {fileID: 8950265562796933603, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
 --- !u!1 &1825969466 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -508814229081040032, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
@@ -2969,7 +2972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: status
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3104,7 +3107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: timer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

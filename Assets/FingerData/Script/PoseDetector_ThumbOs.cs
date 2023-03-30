@@ -7,6 +7,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     //later could add an input to select which fingers to run test on
     [SerializeField] FingerTracker _fingerTracker;
     [SerializeField] int _holdTime;
+    [SerializeField] bool _awaitNext;
 
     // allows for fine tuning the distance between thumb and finger tip required for considering a touch
     static readonly double[] touchDistance = {0.07, 0.08, 0.08, 0.08}; // index, middle, ring, pinky
@@ -28,6 +29,8 @@ public class PoseDetector_ThumbOs : MonoBehaviour
             if (holdTimer > _holdTime)
             {
                 curFinger += 1;
+                holdTimer = 0;
+                run = ! _awaitNext;
             }
             if (curFinger >= touchDistance.Length)
             {
