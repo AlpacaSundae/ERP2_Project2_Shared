@@ -33,11 +33,12 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] ResourceSet _resources = null;
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
-    [Space]
+    [SerializeField] float _minConfidence = 0.75f;
 
     // Public outputs
     public int _desiredHandedness = 0;
     public int handedness;
+    public bool confidence;
     public float[] angles = new float[JointTriples.GetLength(0)];
     public float[] distances = new float[FingerTip.Length];
     public float palmAngle;
@@ -132,6 +133,7 @@ public class FingerTracker : MonoBehaviour
         for (var ii = 0; ii < JointTriples.GetLength(0); ii++)
             for (var jj = 0; jj < AngleSmoothing; jj++)
                 angle_hist[jj,ii] = 180f;
+        smoothFingerAngles();
     }
 
     void OnDestroy()
@@ -144,7 +146,8 @@ public class FingerTracker : MonoBehaviour
         _pipeline.ProcessImage(_source.Texture);
 
         handedness = _pipeline.getHandedness();
-        if (handedness == _desiredHandedness)
+        confidence = _pipeline.getHandDetected(_minConfidence);
+        if ((handedness == _desiredHandedness) & confidence)
         {
             getFingerAngles();
             smoothFingerAngles();
