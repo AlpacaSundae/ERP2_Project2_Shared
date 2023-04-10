@@ -24,7 +24,10 @@ public class TextDisplay : MonoBehaviour
 
     void displayThumbos()
     {
-        cur_finger.text = fingers[_thumbos.curFinger];
+        if (_thumbos.curFinger == -1)
+            cur_finger.text = "nope.avi";
+        else
+            cur_finger.text = fingers[_thumbos.curFinger];
         hold_timer.text = _thumbos.holdTimer.ToString();
         if (_thumbos.holdTimer > 0)
             hold_timer.color = Color.green;
