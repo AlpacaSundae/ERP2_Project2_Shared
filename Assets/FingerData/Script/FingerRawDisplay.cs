@@ -72,6 +72,7 @@ public class FingerRawDisplay : MonoBehaviour
         {
             var p1 = _landmarkDetector.getPoint(pair.Item1);
             var p2 = _landmarkDetector.getPoint(pair.Item2);
+
             if (_keepStill)
             {
                 p1 -= lockPos;

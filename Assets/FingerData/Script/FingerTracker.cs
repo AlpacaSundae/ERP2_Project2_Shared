@@ -34,7 +34,6 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
     [SerializeField] float _minConfidence = 0.75f;
-    [Space]
 
     // Public outputs
     public int _desiredHandedness = 0;
