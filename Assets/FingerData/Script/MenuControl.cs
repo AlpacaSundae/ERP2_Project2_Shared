@@ -74,6 +74,13 @@ public class MenuControl : MonoBehaviour
             else
             {
                 buttonImage.color = _defaultColour;
+                
+                // timer should only reset if the stored button loses contact (reaches this case)
+                if (buttonIdx == ii)
+                {
+                    timer = 0;
+                    buttonIdx = -1;
+                }
             }
 
         }
