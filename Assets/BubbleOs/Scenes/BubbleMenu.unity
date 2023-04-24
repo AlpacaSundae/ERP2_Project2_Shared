@@ -2467,14 +2467,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ff2e515a81541cbb664860588e2c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sourceType: 1
+  _sourceType: 2
   _texture: {fileID: 0}
   _textureUrl: 
   _video: {fileID: 32900000, guid: 985e7e66ae41e9a45876e65060779b68, type: 3}
   _videoUrl: 
-  _webcamName: Front Camera (redirected)
-  _webcamResolution: {x: 640, y: 480}
-  _webcamFrameRate: 15
+  _webcamName: OBS Virtual Camera
+  _webcamResolution: {x: 1280, y: 720}
+  _webcamFrameRate: 30
   _outputTexture: {fileID: 0}
   _outputResolution: {x: 1280, y: 720}
   _shader: {fileID: 4800000, guid: 3f7d8db4748f54c638a46cec0b0e61f8, type: 3}
@@ -2535,9 +2535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _landmarkDetector: {fileID: 1791954282}
-  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 3}
-  _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 3}
-  _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 3}
+  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  _boneMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _jointMaterial: {fileID: 8950265562796933603, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
   _boneMaterial: {fileID: 8950265562796933603, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
   _keepStill: 0
   _offset: {x: 0, y: 0, z: 0}

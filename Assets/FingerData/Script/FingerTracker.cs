@@ -47,8 +47,14 @@ public class FingerTracker : MonoBehaviour
 
     #region Internals
 
+    // negates x for mirror position representation
     public Vector3 getPoint(int ii)
-        => _pipeline.GetKeyPoint(ii);
+    {
+        Vector3 point = _pipeline.GetKeyPoint(ii);
+        point.x *= -1;
+
+        return point;
+    }
 
     // Private
     HandPipeline _pipeline;
