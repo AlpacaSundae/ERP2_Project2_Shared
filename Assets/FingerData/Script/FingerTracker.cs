@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Klak.TestTools;
 using MediaPipe.HandPose;
+using System.IO;
 
 public class FingerTracker : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] ResourceSet _resources = null;
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
-    [SerializeField] int _desiredHandedness = 0;
+    [SerializeField] public int _desiredHandedness = 0;
     [Space]
 
     // Public outputs
@@ -60,7 +61,7 @@ public class FingerTracker : MonoBehaviour
     };
     static readonly int ThumbTip = 4;
     static readonly int[] FingerTip = {8, 12, 16, 20};
-    static readonly int AngleSmoothing = 15;   // count of angle calculations to keep memory of
+    static readonly int AngleSmoothing = 1;   // count of angle calculations to keep memory of
 
     float[,] angle_hist = new float[AngleSmoothing, JointTriples.GetLength(0)];
     int angle_idx = 0; // which entry currently used in angle array
@@ -80,6 +81,28 @@ public class FingerTracker : MonoBehaviour
 
     // smooths angles using average of the calculated angle history
     // AngleSmoothing defines number of previous angles to store
+    /*
+    void smoothFingerAngles()
+    {
+        StreamWriter writer = new StreamWriter("C:/Users/samue/OneDrive/Curtin Uni/Thesis/ERP2_Project2_Shared/Assets/test.csv", true );
+        for (var ii = 0; ii < JointTriples.GetLength(0); ii++)
+        {
+            angles[ii] = angle_hist[0,ii] / AngleSmoothing;
+            for (var jj = 1; jj < AngleSmoothing; jj++)
+            {
+                angles[ii] += angle_hist[jj,ii] / AngleSmoothing;
+                
+            }
+            writer.Write(angles[ii]);
+            writer.Write(",");
+        }
+        writer.Write(System.Environment.NewLine);
+        writer.Close();
+
+        angle_idx = (angle_idx + 1) % AngleSmoothing;
+    }
+    
+    */
     void smoothFingerAngles()
     {
         for (var ii = 0; ii < JointTriples.GetLength(0); ii++)
@@ -90,10 +113,10 @@ public class FingerTracker : MonoBehaviour
                 angles[ii] += angle_hist[jj,ii] / AngleSmoothing;
             }
         }
-
         angle_idx = (angle_idx + 1) % AngleSmoothing;
     }
-
+    
+    
     // calculates teh angle between palms plane and desired palm position plane
     void getPalmAngles()
     {
@@ -120,7 +143,7 @@ public class FingerTracker : MonoBehaviour
             distances[ii] = Vector3.Distance(thumbPos, _pipeline.GetKeyPoint(FingerTip[ii]));
     }
 
-  
+    #endregion
 
     #region Runtime
 

@@ -7,6 +7,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+
 
 public class FingerRawDisplay : MonoBehaviour
 {
@@ -15,11 +17,16 @@ public class FingerRawDisplay : MonoBehaviour
     [SerializeField] Mesh _jointMesh = null;
     [SerializeField] Mesh _boneMesh = null;
     [Space]
-    //[SerializeField] Material _relevantMaterial = null;
+
     [SerializeField] Material _desiredMaterial = null;
     [SerializeField] Material _undesiredMaterial = null;
     [SerializeField] Material _ignoredMaterial = null;
     [SerializeField] Material _boneMaterial = null;
+    [Space]
+    //[SerializeField] int selectedPose = 0;
+    //[Space]
+    //[SerializeField] int tolerance = 25;
+    [SerializeField] ButtonUI button;
 
     Matrix4x4 CalculateJointXform(Vector3 pos)
         => Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.07f);
@@ -55,15 +62,49 @@ public class FingerRawDisplay : MonoBehaviour
     // unsure of joints:
     //         2,3 (thumb)
 
-    static readonly int[] FlatPose =
+    //the thumb angles are ignored for now
+
+    static readonly int[,] poseType =
     {
-        //(-1), (-1), (180),(180), (-1),    //Thumb + Palm
-        (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
-        (180),(180),(180),(-1),           //Index finger
-        (180),(180),(180),(-1),           //Middle finger
-        (180),(180),(180),(-1),           //Ring finger
-        (180),(180),(180),(-1)           //Pinky
+        //nothing selected
+        {
+            (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
+            (-1),(-1),(-1),(-1),           //Index finger
+            (-1),(-1),(-1),(-1),           //Middle finger
+            (-1),(-1),(-1),(-1),           //Ring finger
+            (-1),(-1),(-1),(-1)           //Pinky
+        },
+
+
+        //flat hand
+        {
+            (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
+            (170),(170),(170),(-1),           //Index finger
+            (170),(170),(170),(-1),           //Middle finger
+            (170),(170),(170),(-1),           //Ring finger
+            (170),(170),(170),(-1)           //Pinky
+        },
+
+        //claw
+        {
+            (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
+            (160),(145),(135),(-1),           //Index finger
+            (160),(130),(130),(-1),           //Middle finger
+            (165),(123),(135),(-1),           //Ring finger
+            (160),(138),(135),(-1)           //Pinky
+        },
+
+        //closed
+        {
+            (-1), (-1), (-1), (-1), (-1),    //Thumb + Palm
+            (25),(160),(120),(-1),           //Index finger
+            (70),(95),(105),(-1),           //Middle finger
+            (105),(80),(100),(-1),           //Ring finger
+            (90),(105),(105),(-1)           //Pinky
+        }
+
     };
+
 
     // Start is called before the first frame update
     void Start()
@@ -76,43 +117,52 @@ public class FingerRawDisplay : MonoBehaviour
     {
         var layer = gameObject.layer;
 
-        //Joint balls
-        var counter = 1;
-        for (var i = 0; i < 21; i++)
+        if ((landmarkDetector._desiredHandedness == landmarkDetector.handedness) && (landmarkDetector.palmAngle < 45))
         {
-
-            if (FlatPose[i] != -1)
+            StreamWriter writer = new StreamWriter("C:/Users/samue/OneDrive/Curtin Uni/Thesis/ERP2_Project2_Shared/Assets/test.csv", true );
+            //Joint balls
+            var counter = 3;
+            for (var i = 0; i < 21; i++)
             {
-                //20 angle tolerance
-                var tolerance = 15;
-                if ((landmarkDetector.angles[counter] >= FlatPose[i]- tolerance ) )
+                
+                if (poseType[button.selectedPose, i] != -1)
                 {
-                    var xform = CalculateJointXform(landmarkDetector.getPoint(i));
-                    Graphics.DrawMesh(_jointMesh, xform, _desiredMaterial, layer);
-                    counter++;
+                    writer.Write(landmarkDetector.angles[counter]);
+                    print(landmarkDetector.angles[counter]);
+                    writer.Write(",");
+                    if ((landmarkDetector.angles[counter] >= poseType[button.selectedPose, i] - button.tolerance ) && (landmarkDetector.angles[counter] <= poseType[button.selectedPose, i] + button.tolerance )  )
+                    {
+                        var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                        Graphics.DrawMesh(_jointMesh, xform, _desiredMaterial, layer);
+                        counter++;
+                    }
+                    else
+                    {
+                        var xform = CalculateJointXform(landmarkDetector.getPoint(i));
+                        Graphics.DrawMesh(_jointMesh, xform, _undesiredMaterial, layer);
+                        counter++;
+                    }
                 }
                 else
                 {
+                    
                     var xform = CalculateJointXform(landmarkDetector.getPoint(i));
-                    Graphics.DrawMesh(_jointMesh, xform, _undesiredMaterial, layer);
-                    counter++;
+                    Graphics.DrawMesh(_jointMesh, xform, _ignoredMaterial, layer);
                 }
-
             }
-            else
+            writer.Write(System.Environment.NewLine);
+            writer.Close();
+            // Bones
+            foreach (var pair in BonePairs)
             {
-                var xform = CalculateJointXform(landmarkDetector.getPoint(i));
-                Graphics.DrawMesh(_jointMesh, xform, _ignoredMaterial, layer);
+                var p1 = landmarkDetector.getPoint(pair.Item1);
+                var p2 = landmarkDetector.getPoint(pair.Item2);
+                var xform = CalculateBoneXform(p1, p2);
+                Graphics.DrawMesh(_boneMesh, xform, _boneMaterial, layer);
             }
+
         }
 
-        // Bones
-        foreach (var pair in BonePairs)
-        {
-            var p1 = landmarkDetector.getPoint(pair.Item1);
-            var p2 = landmarkDetector.getPoint(pair.Item2);
-            var xform = CalculateBoneXform(p1, p2);
-            Graphics.DrawMesh(_boneMesh, xform, _boneMaterial, layer);
-        }
+        
     }
 }
