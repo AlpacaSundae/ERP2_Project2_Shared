@@ -30,10 +30,10 @@ public class MenuControl : MonoBehaviour
 
             // Calculate the bounding box via opposing corners
             buttonPos[ii] = new Vector4(
-                button.transform.position.x + rectTransform.rect.width/2*rectTransform.localScale.x,   //x1 (x1,y1) o----------------
+                button.transform.position.x + rectTransform.rect.width/2*rectTransform.localScale.x,   //x1         ----------------o (x1,y1)
                 button.transform.position.x - rectTransform.rect.width/2*rectTransform.localScale.x,   //x2         |               |
                 button.transform.position.y + rectTransform.rect.height/2*rectTransform.localScale.y,  //y1         |               |
-                button.transform.position.y - rectTransform.rect.height/2*rectTransform.localScale.y   //y2         |---------------o (x2,y2)
+                button.transform.position.y - rectTransform.rect.height/2*rectTransform.localScale.y   //y2 (x2,y2) o---------------- 
             );
         } 
     }
@@ -41,13 +41,13 @@ public class MenuControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get the index coordinates
+        // get the index coordinates
         Vector3 selPos = _camera.WorldToScreenPoint(_fingerTracker.getPoint(8));
 
         for (int ii = 0; ii < _buttonList.Length; ii++)
         {
             Image buttonImage = _buttonList[ii].GetComponent<Image>();
-            //setting the corners of the button
+            // setting the corners of the button
             var pos = buttonPos[ii];
             if ((pos.x > selPos.x) & (pos.y <  selPos.x) & (pos.z >  selPos.y) & (pos.w <  selPos.y))
             {
