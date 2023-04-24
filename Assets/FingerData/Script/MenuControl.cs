@@ -9,6 +9,8 @@ public class MenuControl : MonoBehaviour
     [SerializeField] FingerTracker _fingerTracker;
     [SerializeField] double _holdDuration = 0.5; // amount of time (seconds) to hold button for
     [Space]
+    [SerializeField] GameObject  _pointer;
+    [Space]
     [SerializeField] Color _defaultColour = Color.white;
     [SerializeField] Color _selectColour = Color.grey;
     [SerializeField] Color _pressColour = Color.green;
@@ -43,6 +45,10 @@ public class MenuControl : MonoBehaviour
     {
         // get the index coordinates
         Vector3 selPos = _camera.WorldToScreenPoint(_fingerTracker.getPoint(8));
+
+        // set pointer position if pointer exists
+        if (!(_pointer == null))
+            _pointer.transform.position = selPos;
 
         for (int ii = 0; ii < _buttonList.Length; ii++)
         {
