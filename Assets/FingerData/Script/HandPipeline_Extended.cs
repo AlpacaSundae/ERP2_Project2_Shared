@@ -16,7 +16,7 @@ namespace MediaPipe.HandPose {
         public int getHandedness()
         {
             var handedness = -1;
-            var hand_tol = 0.025;
+            var hand_tol = 0.075;
             var value = _getHandedness();
 
             if ((Mathf.Abs(value - 1)) < hand_tol)

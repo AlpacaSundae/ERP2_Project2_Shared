@@ -6,7 +6,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
 {
     //later could add an input to select which fingers to run test on
     [SerializeField] FingerTracker _fingerTracker;
-    [SerializeField] int _holdTime;
+    [SerializeField] double _holdTime;
     [SerializeField] bool _awaitNext;
 
     // allows for fine tuning the distance between thumb and finger tip required for considering a touch
@@ -14,12 +14,17 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     static readonly int[,] angleIndex = {{3,4},{6,7},{9,10},{12,13}};
     static readonly double[,] angleValue = {{100, 100},{100, 100},{100, 100},{100, 100}};
     static readonly double tolerance = 45; // value in degrees, tolerance for accepted angle
+    // thumb tip distance calculating vars
+    static readonly int ThumbTip = 4;
+    static readonly int[] FingerTip = {8, 12, 16, 20};
 
-    int prevHoldTimer = 0;
-
+    public float[] distances = new float[FingerTip.Length];
+    double prevHoldTimer = 0;
+    
+    // public items
     public double[] score = new double[angleIndex.GetLength(0)];
     public int curFinger = 0;
-    public int holdTimer = 0;
+    public double holdTimer = 0;
     public bool complete = false;
     public bool clear = false;
     public bool run = false;
@@ -27,11 +32,19 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     public Vector3 getHandPos()
         => _fingerTracker.getPoint(0);
 
+    // returns thumb distance to each finger
+    void distanceToThumbTip()
+    {
+        var thumbPos = _fingerTracker.getPoint(ThumbTip);
+        for (var ii = 0; ii < FingerTip.Length; ii++)
+            distances[ii] = Vector3.Distance(thumbPos, _fingerTracker.getPoint(FingerTip[ii]));
+    }
+
     void checkTouching()
     {
-        if (_fingerTracker.distances[curFinger] < touchDistance[curFinger])
+        if (distances[curFinger] < touchDistance[curFinger])
         {
-            holdTimer += 1;
+            holdTimer += Time.deltaTime;
             if (holdTimer > _holdTime)
             {
                 curFinger += 1;
@@ -55,11 +68,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     // done for each increment of the hold timer
     void checkScoring()
     {
-        if (prevHoldTimer == holdTimer)
-        {
-            return;
-        }
-        else if (holdTimer > 0)
+        if (holdTimer > 0)
         {
             var angleCount = angleIndex.GetLength(1);
             for (var ii=0; ii<angleCount; ii++)
@@ -68,7 +77,7 @@ public class PoseDetector_ThumbOs : MonoBehaviour
                 var desired = angleValue[curFinger, ii];
                 if ((desired - tolerance < angle) & (angle < desired + tolerance))
                 {
-                    score[curFinger] += 1.0/(_holdTime*angleCount);
+                    score[curFinger] += (Time.deltaTime/_holdTime) * (1.0/angleCount);
                 }
             }
         }
@@ -97,8 +106,9 @@ public class PoseDetector_ThumbOs : MonoBehaviour
     {
         if (clear)
             resetExercise();
-        else if (!complete & run)
+        else if (!complete & run & _fingerTracker.confidence)
         {
+            distanceToThumbTip();
             checkTouching();
             if (curFinger != -1)
                 checkScoring();

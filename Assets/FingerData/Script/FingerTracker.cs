@@ -40,7 +40,6 @@ public class FingerTracker : MonoBehaviour
     public int handedness;
     public bool confidence;
     public float[] angles = new float[JointTriples.GetLength(0)];
-    public float[] distances = new float[FingerTip.Length];
     public float palmAngle;
 
     #endregion
@@ -67,8 +66,6 @@ public class FingerTracker : MonoBehaviour
         (0,13,14), (13,14,15), (14,15,16),// Ring
         (0,17,18), (17,18,19), (18,19,20)// Pinky
     };
-    static readonly int ThumbTip = 4;
-    static readonly int[] FingerTip = {8, 12, 16, 20};
     static readonly int AngleSmoothing = 15;   // count of angle calculations to keep memory of
 
     float[,] angle_hist = new float[AngleSmoothing, JointTriples.GetLength(0)];
@@ -121,14 +118,6 @@ public class FingerTracker : MonoBehaviour
         
     }
 
-    // returns thumb distance to each finger
-    void distanceToThumbTip()
-    {
-        var thumbPos = _pipeline.GetKeyPoint(ThumbTip);
-        for (var ii = 0; ii < FingerTip.Length; ii++)
-            distances[ii] = Vector3.Distance(thumbPos, _pipeline.GetKeyPoint(FingerTip[ii]));
-    }
-
     #endregion
 
     #region Runtime
@@ -157,7 +146,6 @@ public class FingerTracker : MonoBehaviour
         {
             getFingerAngles();
             smoothFingerAngles();
-            distanceToThumbTip();
             getPalmAngles();
         }
 
