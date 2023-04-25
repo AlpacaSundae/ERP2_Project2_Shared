@@ -790,12 +790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225c3f7389453fd4fa778c79a231877a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonList:
-  - {fileID: 1060862613}
-  - {fileID: 1861500003}
-  - {fileID: 1331700018}
+  _buttonList: []
   _fingerTracker: {fileID: 1791954282}
   _holdDuration: 0.5
+  _xyRange: 0.75
   _pointer: {fileID: 1654977763}
   _defaultColour: {r: 1, g: 1, b: 1, a: 1}
   _selectColour: {r: 0.5, g: 0.5, b: 0.5, a: 1}

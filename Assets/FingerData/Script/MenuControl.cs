@@ -7,7 +7,9 @@ public class MenuControl : MonoBehaviour
 {
     [SerializeField] Button[] _buttonList; 
     [SerializeField] FingerTracker _fingerTracker;
+    [Space]
     [SerializeField] double _holdDuration = 0.5; // amount of time (seconds) to hold button for
+    [SerializeField] float _xyRange = 0.75f;
     [Space]
     [SerializeField] GameObject  _pointer;
     [Space]
@@ -23,8 +25,21 @@ public class MenuControl : MonoBehaviour
     private Vector4[] buttonPos;
     private int buttonIdx = -1;
 
+    Vector3 centre;
+    float scale;
+    Canvas canvas;
+
     void Start()
     {
+        canvas = GetComponent<Canvas>();
+        if (_buttonList.Length == 0)
+            _buttonList = canvas.GetComponentsInChildren<Button>();
+
+        centre = (canvas.transform.position);
+        RectTransform rectCanvas = canvas.GetComponent<RectTransform>();
+        scale = rectCanvas.rect.width * canvas.transform.localScale.x;
+        transform.localScale = canvas.transform.localScale;
+
         buttonPos = new Vector4[_buttonList.Length];
         for (int ii = 0; ii < _buttonList.Length; ii++)
         {
@@ -34,10 +49,10 @@ public class MenuControl : MonoBehaviour
 
             // Calculate the bounding box via opposing corners
             buttonPos[ii] = new Vector4(
-                button.transform.position.x + rectTransform.rect.width/2*rectTransform.localScale.x,   //x1         ----------------o (x1,y1)
-                button.transform.position.x - rectTransform.rect.width/2*rectTransform.localScale.x,   //x2         |               |
-                button.transform.position.y + rectTransform.rect.height/2*rectTransform.localScale.y,  //y1         |               |
-                button.transform.position.y - rectTransform.rect.height/2*rectTransform.localScale.y   //y2 (x2,y2) o---------------- 
+                button.transform.position.x + rectTransform.rect.width/2*rectTransform.localScale.x*canvas.transform.localScale.x,   //x1         ----------------o (x1,y1)
+                button.transform.position.x - rectTransform.rect.width/2*rectTransform.localScale.x*canvas.transform.localScale.x,   //x2         |               |
+                button.transform.position.y + rectTransform.rect.height/2*rectTransform.localScale.y*canvas.transform.localScale.y,  //y1         |               |
+                button.transform.position.y - rectTransform.rect.height/2*rectTransform.localScale.y*canvas.transform.localScale.y   //y2 (x2,y2) o---------------- 
             );
         } 
     }
@@ -46,7 +61,12 @@ public class MenuControl : MonoBehaviour
     void Update()
     {
         // get the index coordinates
-        Vector3 selPos = _camera.WorldToScreenPoint(_fingerTracker.getPoint(8));
+        Vector3 selPos = _fingerTracker.getPoint(8);
+        selPos.x *= scale/_xyRange;
+        selPos.y *= scale/_xyRange;
+        selPos += centre;
+
+        //selPos = _camera.WorldToScreenPoint(selPos);
 
         // set pointer position if pointer exists
         if (!(_pointer == null))
