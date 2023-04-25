@@ -17,8 +17,10 @@ public class MenuControl : MonoBehaviour
     [Space]
     [SerializeField] Camera _camera; 
 
-    private Vector4[] buttonPos;
     public double timer = 0;
+
+    private readonly float alpha = 0.1f; // factor to move the cursor in direction of new position
+    private Vector4[] buttonPos;
     private int buttonIdx = -1;
 
     void Start()
@@ -48,7 +50,15 @@ public class MenuControl : MonoBehaviour
 
         // set pointer position if pointer exists
         if (!(_pointer == null))
-            _pointer.transform.position = selPos;
+        {
+            Vector3 prevPos = _pointer.transform.position;
+            Vector3 deltaPos = alpha*(selPos - prevPos);
+
+            if (_fingerTracker.confidence)
+                _pointer.transform.position += deltaPos;
+            else
+                _pointer.transform.position = new Vector3(-50f,-50f,-50f);
+        }
 
         for (int ii = 0; ii < _buttonList.Length; ii++)
         {
