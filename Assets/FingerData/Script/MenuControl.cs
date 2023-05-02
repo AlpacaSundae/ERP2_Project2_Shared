@@ -74,10 +74,14 @@ public class MenuControl : MonoBehaviour
             Vector3 prevPos = _pointer.transform.position;
             Vector3 deltaPos = alpha*(selPos - prevPos);
 
-            if (_fingerTracker.confidence)
+            if (_fingerTracker.confidence) 
+            {
                 _pointer.transform.position += deltaPos;
+                _pointer.SetActive(true);
+            }
             else
-                _pointer.transform.position = new Vector3(-50f,-50f,-50f);
+                _pointer.SetActive(false);
+                //_pointer.transform.position = new Vector3(-50f,-50f,-50f);
         }
 
         for (int ii = 0; ii < _buttonList.Length; ii++)
