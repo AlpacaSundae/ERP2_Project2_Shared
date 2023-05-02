@@ -34,6 +34,7 @@ public class FingerTracker : MonoBehaviour
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
     [SerializeField] float _minConfidence = 0.75f;
+    [SerializeField] ConfigSO _config;
 
     // Public outputs
     public int _desiredHandedness = 0;
@@ -50,7 +51,8 @@ public class FingerTracker : MonoBehaviour
     public Vector3 getPoint(int ii)
     {
         Vector3 point = _pipeline.GetKeyPoint(ii);
-        point.x *= -1;
+        if (_config.Mirrored)
+            point.x *= -1;
 
         return point;
     }

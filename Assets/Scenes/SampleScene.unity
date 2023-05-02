@@ -440,6 +440,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fingerTracker: {fileID: 1791954282}
   _holdTime: 120
+  _awaitNext: 0
+  distances:
+  - 0
+  - 0
+  - 0
+  - 0
+  score:
+  - 0
+  - 0
+  - 0
+  - 0
   curFinger: 0
   holdTimer: 0
   complete: 0
@@ -592,7 +603,11 @@ MonoBehaviour:
   handiness: {fileID: 1678039049}
   palm_angle: {fileID: 2113301163}
   correct: {fileID: 2105372201}
+  cur_finger: {fileID: 0}
+  hold_timer: {fileID: 0}
+  status: {fileID: 0}
   fintracker: {fileID: 1791954282}
+  _thumbos: {fileID: 0}
 --- !u!1 &602924863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 73485266611798029, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}
@@ -1966,8 +1981,11 @@ MonoBehaviour:
   _source: {fileID: 1791954283}
   _resources: {fileID: 11400000, guid: 91bfddd4f6a664d13be4b4a5340a2099, type: 2}
   _useAsyncReadback: 1
+  _minConfidence: 0.75
+  _config: {fileID: 11400000, guid: af9397c87cb275d43b902aa1ef0b9268, type: 2}
   _desiredHandedness: 1
   handedness: 0
+  confidence: 0
   angles:
   - 0
   - 0
@@ -1980,11 +1998,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  distances:
   - 0
   - 0
   - 0
@@ -2074,6 +2087,8 @@ MonoBehaviour:
   _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   _jointMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   _boneMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  _keepStill: 0
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1825969466 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -508814229081040032, guid: 1ae4b0f48dfe8ea44933f0e3ab7f6c94, type: 3}

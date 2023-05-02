@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class MenuControl : MonoBehaviour
 {
     [SerializeField] Button[] _buttonList; 
-    [SerializeField] FingerTracker _fingerTracker;
     [Space]
     [SerializeField] double _holdDuration = 0.5; // amount of time (seconds) to hold button for
     [SerializeField] float _xyRange = 0.75f;
@@ -19,6 +18,7 @@ public class MenuControl : MonoBehaviour
     [Space]
     [SerializeField] Camera _camera; 
 
+    FingerTracker _fingerTracker;
     public double timer = 0;
 
     private readonly float alpha = 0.1f; // factor to move the cursor in direction of new position
@@ -31,6 +31,7 @@ public class MenuControl : MonoBehaviour
 
     void Start()
     {
+        _fingerTracker = FindObjectOfType<FingerTracker>();
         canvas = GetComponent<Canvas>();
         if (_buttonList.Length == 0)
             _buttonList = canvas.GetComponentsInChildren<Button>();

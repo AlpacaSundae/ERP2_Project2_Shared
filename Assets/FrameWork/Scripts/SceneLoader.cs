@@ -1,0 +1,15 @@
+using UnityEngine.SceneManagement;
+using UnityEngine;
+
+public class SceneLoader : MonoBehaviour
+{
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void returnScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
+}
