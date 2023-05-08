@@ -11,8 +11,8 @@ public class PoseDetector_ThumbOs : MonoBehaviour
 
     // allows for fine tuning the distance between thumb and finger tip required for considering a touch
     static readonly double[] touchDistance = {0.07, 0.08, 0.08, 0.08}; // index, middle, ring, pinky
-    static readonly int[,] angleIndex = {{3,4},{6,7},{9,10},{12,13}};
-    static readonly double[,] angleValue = {{100, 100},{100, 100},{100, 100},{100, 100}};
+    static readonly int[,] angleIndex = {{4},{7},{10},{13}};
+    static readonly double[,] angleValue = {{100},{100},{100},{100}};
     static readonly double tolerance = 45; // value in degrees, tolerance for accepted angle
     // thumb tip distance calculating vars
     static readonly int ThumbTip = 4;

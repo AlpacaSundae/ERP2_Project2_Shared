@@ -30,6 +30,7 @@ public class FingerTracker : MonoBehaviour
     
     // Attributes
     [SerializeField] ImageSource _source = null;
+    [SerializeField] RawImage _uiDisplay;
     [SerializeField] ResourceSet _resources = null;
     [SerializeField] bool _useAsyncReadback = true;
     [Space]
@@ -151,6 +152,10 @@ public class FingerTracker : MonoBehaviour
             getPalmAngles();
         }
 
+        if (_uiDisplay)
+        {
+            _uiDisplay.texture = _source.Texture;
+        }
     }
 
     #endregion

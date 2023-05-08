@@ -14,6 +14,7 @@ public class TextDisplay : MonoBehaviour
     [SerializeField] TextMeshProUGUI cur_finger;
     [SerializeField] TextMeshProUGUI hold_timer;
     [SerializeField] TextMeshProUGUI status;
+    [SerializeField] TextMeshProUGUI score_text;
     [Space]
     [SerializeField] FingerTracker fintracker;
     [SerializeField] PoseDetector_ThumbOs _thumbos;
@@ -28,7 +29,7 @@ public class TextDisplay : MonoBehaviour
             cur_finger.text = "nope.avi";
         else
             cur_finger.text = fingers[_thumbos.curFinger];
-        hold_timer.text = _thumbos.holdTimer.ToString();
+        hold_timer.text = _thumbos.holdTimer.ToString("0.00");
         if (_thumbos.holdTimer > 0)
             hold_timer.color = Color.green;
         else
@@ -49,6 +50,13 @@ public class TextDisplay : MonoBehaviour
             status.text = "idle hands";
             status.color = Color.white;
         }
+
+        var score_val = 0.0;
+        for (int ii  = 0; ii < _thumbos.score.Length; ii++)
+        {
+            score_val += _thumbos.score[ii] / _thumbos.score.Length;
+        }
+        score_text.text = score_val.ToString("0.00");
     }
 
     public void startExercise()
